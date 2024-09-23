@@ -23,6 +23,25 @@ const ListBooks = () => {
       setBooks(books);
     });
   }, []);
+  const updateBookShelf = (book, shelf) => {
+    //Call API to update the book shelf
+    BooksAPI.update(book, shelf).then((response) => {
+      console.log(response);
+      const newBooks = books.map((b) => {
+        if (response.currentlyReading.includes(b.id)) {
+          b.shelf = "currentlyReading";
+        } else if (response.wantToRead.includes(b.id)) {
+          b.shelf = "wantToRead";
+        } else if (response.read.includes(b.id)) {
+          b.shelf = "read";
+        } else {
+          b.shelf = "none";
+        }
+        return b;
+      });
+      setBooks(newBooks);
+    });
+  };
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -40,7 +59,7 @@ const ListBooks = () => {
                       .filter((book) => book.shelf === shelf.value)
                       .map((book) => {
                         return (
-                          <li>
+                          <li key={book.id}>
                             <div className="book">
                               <div className="book-top">
                                 <div
@@ -52,7 +71,12 @@ const ListBooks = () => {
                                   }}
                                 ></div>
                                 <div className="book-shelf-changer">
-                                  <select>
+                                  <select
+                                    value={book.shelf}
+                                    onChange={(event) => {
+                                      updateBookShelf(book, event.target.value);
+                                    }}
+                                  >
                                     <option value="none" disabled>
                                       Move to...
                                     </option>
