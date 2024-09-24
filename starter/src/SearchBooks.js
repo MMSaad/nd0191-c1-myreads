@@ -4,6 +4,7 @@ import { useState } from "react";
 import BookListItem from "./BookListItem";
 const SearchBooks = () => {
   const [books, setBooks] = useState([]);
+  const [query, setQuery] = useState("");
   const updateBookShelf = (book, shelf) => {
     //Call API to update the book shelf
     BooksAPI.update(book, shelf).then((response) => {
@@ -23,10 +24,19 @@ const SearchBooks = () => {
       setBooks(newBooks);
     });
   };
-  const SearchBooks = (query) => {
-    console.log(query);
-    BooksAPI.search(query).then((response) => {
+  const SearchBooks = (newQuery) => {
+    setQuery(newQuery);
+    console.log(newQuery);
+    if (newQuery.trim().length === 0) {
+      setBooks([]);
+      return;
+    }
+    BooksAPI.search(newQuery).then((response) => {
       console.log(response);
+      if (query !== newQuery) {
+        console.log(`Query changed ${query} `);
+        return;
+      }
       if (response.error) {
         setBooks([]);
         return;
