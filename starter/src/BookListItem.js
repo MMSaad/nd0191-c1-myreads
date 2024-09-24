@@ -1,4 +1,6 @@
-const BookListItem = ({ book, updateBookShelf }) => {
+import { Link } from "react-router-dom";
+
+const BookListItem = ({ book, updateBookShelf, consumerShelf }) => {
   return (
     <li key={book.id}>
       <div className="book">
@@ -8,17 +10,17 @@ const BookListItem = ({ book, updateBookShelf }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url("${book.imageLinks?.thumbnail}")`,
+              backgroundImage: `url("${book.imageLinks?.smallThumbnail}")`,
             }}
           ></div>
           <div className="book-shelf-changer">
             <select
-              value={book.shelf}
+              value={consumerShelf}
               onChange={(event) => {
                 updateBookShelf(book, event.target.value);
               }}
             >
-              <option value="none" disabled>
+              <option value="none" disabled={consumerShelf !== undefined}>
                 Move to...
               </option>
               <option value="currentlyReading">Currently Reading</option>
@@ -28,7 +30,9 @@ const BookListItem = ({ book, updateBookShelf }) => {
             </select>
           </div>
         </div>
-        <div className="book-title">{book.title}</div>
+        <Link to={`/details/${book.id}`} className="book-title">
+          {book.title}
+        </Link>
         <div className="book-authors">{book.authors?.join(", ")}</div>
       </div>
     </li>

@@ -86,6 +86,15 @@ body,
   font-size: 1.25em;
   border: none;
   outline: none;
+  background-color: white;
+}
+.search-books-bar div {
+  width: 100%;
+  padding: 5px 5px;
+  font-size: 1.25em;
+  border: none;
+  outline: none;
+  background-color: white;
 }
 
 .close-search {
@@ -174,4 +183,35 @@ body,
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+
+.book-details{
+  padding: 80px;
+  display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+
+
+.image-container{
+  width: 200px;
+}
+
+.image-container img{
+width: 100%;
+  padding: 8px;
+}
+
+.book-details-info{
+  flex: 1;
+}
+
+.book-detail-row{
+  color:black;
+}
+
+.book-detail-row strong{
+  padding-inline-end: 10px;
 }
