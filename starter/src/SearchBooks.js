@@ -49,7 +49,7 @@ const SearchBooks = ({ consumerBooks, updateBookShelf }) => {
                 key={book.id}
                 book={book}
                 consumerShelf={
-                  consumerBooks.find((b) => b.id === book.id)?.shelf
+                  consumerBooks.find((b) => b.id === book.id)?.shelf ?? "none"
                 }
                 updateBookShelf={updateBookShelf}
               />
